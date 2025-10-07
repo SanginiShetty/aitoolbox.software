@@ -4,7 +4,7 @@ import { formatDate } from "date-fns";
 import React, { useEffect, useRef, useState } from "react";
 import { ResumeValues } from "@/lib/resume/validation";
 import { Badge } from "@/components/ui/badge";
-import useDimensions from "@/hooks/use-demension";
+import useDimensions from "@/hooks/use-dimensions";
 import { BorderStyles } from "./BorderStyleButtons";
 import { Link } from "lucide-react";
 
