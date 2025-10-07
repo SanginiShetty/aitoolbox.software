@@ -40,7 +40,7 @@ const aiTools = [
     category: "writing"
   },
   {
-    name: "GPT Chatbot",
+    name: "AI Chatbot",
     href: "/chatbot",
     icon: <MessagesSquare className="h-6 w-6" />,
     description: "Interactive AI chatbot for conversations",
@@ -54,35 +54,35 @@ const aiTools = [
     category: "writing"
   },
   {
-    name: "LinkedIn Post Generator",
+    name: "AI LinkedIn Post Generator",
     href: "/linkedin-post-generator",
     icon: <Linkedin className="h-6 w-6" />,
     description: "Create engaging professional LinkedIn posts",
     category: "writing"
   },
   {
-    name: "Image Generator",
+    name: "AI Image Generator",
     href: "/image-generator",
     icon: <ImageIcon className="h-6 w-6" />,
     description: "Create unique AI-generated images",
     category: "visual"
   },
   {
-    name: "Anime AI Generator",
+    name: "AI Anime Image Generator",
     href: "/anime-ai-generator",
     icon: <ImageIcon className="h-6 w-6" />,
     description: "Generate anime-style art from text prompts",
     category: "visual"
   },
   {
-    name: "Logo Generator",
+    name: "AI Logo Generator",
     href: "/logo-generator",
     icon: <Box className="h-6 w-6" />,
     description: "Design professional logos with AI",
     category: "visual"
   },
   {
-    name: "YouTube Summarizer",
+    name: "AI YouTube Summarizer",
     href: "/youtube-summarizer",
     icon: <Youtube className="h-6 w-6" />,
     description: "Get quick summaries of YouTube videos",
@@ -96,42 +96,42 @@ const aiTools = [
     category: "content"
   },
   {
-    name: "Code Explainer",
+    name: "AI Code Explainer",
     href: "/code-explainer",
     icon: <Code className="h-6 w-6" />,
     description: "Understand code snippets easily",
     category: "development"
   },
   {
-    name: "Text Summarizer",
+    name: "AI Text Summarizer",
     href: "/text-summarizer",
     icon: <FileText className="h-6 w-6" />,
     description: "Summarize long texts quickly",
     category: "content"
   },
   {
-    name: "Blog Writer",
+    name: "AI Blog Writer",
     href: "/blog-writer",
     icon: <PenTool className="h-6 w-6" />,
     description: "Create engaging blog content",
     category: "writing"
   },
   {
-    name: "Grammar Fixer",
+    name: "AI Grammar Fixer",
     href: "/grammar-fixer",
     icon: <Check className="h-6 w-6" />,
     description: "Fix grammar and improve writing",
     category: "writing"
   },
   {
-    name: "Resume Builder",
+    name: "AI Resume Builder",
     href: "/resume-builder",
     icon: <FileSpreadsheet className="h-6 w-6" />,
     description: "Create professional resumes",
     category: "professional"
   },
   {
-    name: "Cover Letter Generator",
+    name: "AI Cover Letter Generator",
     href: "/cover-letter-generator",
     icon: <FileUser className="h-6 w-6" />,
     description: "Craft personalized cover letters",
