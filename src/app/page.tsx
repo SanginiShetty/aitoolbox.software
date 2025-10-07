@@ -27,6 +27,7 @@ import {
   Presentation
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Client, Databases } from "appwrite";
 import { getPublicFileViewUrl } from "@/lib/appwrite";
 
@@ -179,6 +180,9 @@ if (duplicateNames.length > 0) {
 }
 
 export default function Home() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [latestBlogs, setLatestBlogs] = useState<any[]>([]);
@@ -202,6 +206,30 @@ export default function Home() {
       } catch {}
     })();
   }, []);
+
+  // Sync selected category with ?category= param
+  useEffect(() => {
+    const categoryParam = searchParams?.get("category");
+    if (categoryParam) {
+      setSelectedCategory(categoryParam);
+    } else {
+      setSelectedCategory("all");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
+  const updateCategoryInUrl = (category: string) => {
+    const params = new URLSearchParams(searchParams?.toString());
+    if (!category || category === "all") {
+      params.delete("category");
+      setSelectedCategory("all");
+    } else {
+      params.set("category", category);
+      setSelectedCategory(category);
+    }
+    const query = params.toString();
+    router.push(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  };
 
   const filteredTools = aiTools.filter(tool => {
     const matchesSearch = tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -255,7 +283,7 @@ export default function Home() {
           <div className="flex flex-wrap gap-2">
             <Button
               variant={selectedCategory === "all" ? "default" : "outline"}
-              onClick={() => setSelectedCategory("all")}
+              onClick={() => updateCategoryInUrl("all")}
               className="text-xs sm:text-sm"
               size="sm"
             >
@@ -265,7 +293,7 @@ export default function Home() {
               <Button
                 key={category}
                 variant={selectedCategory === category ? "default" : "outline"}
-                onClick={() => setSelectedCategory(category)}
+                onClick={() => updateCategoryInUrl(category)}
                 className="text-xs cursor-pointer sm:text-sm capitalize"
                 size="sm"
               >
