@@ -55,7 +55,7 @@ export default function ResumeBuilder() {
 
       <div className="container mx-auto px-4 py-8">
         <header className="mb-8 text-center lg:mb-12">
-          <h1 className="text-3xl font-bold lg:text-4xl">Resume Builder</h1>
+          <h1 className="text-3xl font-bold lg:text-4xl">AI Resume Builder</h1>
           <p className="mt-2 text-gray-600 lg:text-lg">
             Create professional resume instantly
           </p>

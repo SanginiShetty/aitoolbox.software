@@ -30,7 +30,7 @@ export default function ResumeBuilderLayout({
       </Head>
 
       <div className="sr-only" aria-hidden="true">
-        <h1>Free Online Resume Builder</h1>
+        <h1>AI Resume Builder</h1>
         <h2>Create Professional Resumes in Minutes</h2>
         <p>
           Our AI-powered resume builder helps you create perfect, ATS-optimized

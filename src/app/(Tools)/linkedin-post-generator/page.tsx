@@ -46,7 +46,7 @@ export default function LinkedInPostGeneratorPage() {
       <div className="max-w-4xl mx-auto">
         <header className="mb-10">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-center">
-            LinkedIn Post Generator
+            AI LinkedIn Post Generator
           </h1>
           <p className="text-muted-foreground mt-3 max-w-2xl mx-auto text-center">
             Create professional, engaging LinkedIn posts that drive engagement and build your network.

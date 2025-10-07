@@ -86,7 +86,7 @@ export default function AnimeAIGeneratorPage() {
       <div className="max-w-4xl mx-auto">
         <header className="mb-10">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-center">
-            Anime AI Generator
+            AI Anime Image Generator
           </h1>
           <p className="text-muted-foreground mt-3 max-w-2xl mx-auto text-center">
             Type a prompt and instantly generate anime-style artwork. Powered by Pollinations anime model.
