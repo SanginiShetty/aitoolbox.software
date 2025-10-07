@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Startup Idea Generator | AI Toolbox',
+  title: 'AI Startup Idea Generator | AI Toolbox',
   description: 'Generate innovative startup ideas with AI assistance for any industry or market.',
   openGraph: {
-    title: 'Startup Idea Generator | AI Toolbox',
+    title: 'AI Startup Idea Generator | AI Toolbox',
     description: 'Generate innovative startup ideas with AI assistance for any industry or market.',
     type: 'website',
   },

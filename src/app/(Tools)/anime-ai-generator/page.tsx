@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import AnimeGeneratorClient from "./_components/anime-generator-client";
 
 export const metadata: Metadata = {
-  title: "Free Anime AI Generator - Online Text to Anime Art",
+  title: "AI Anime Image Generator - Online Text to Anime Art",
   description:
     "Create anime-style images from text prompts for free. Our Anime AI Generator turns your ideas into stunning anime art. No watermark, fast, and mobile-friendly.",
   keywords: [
@@ -16,12 +16,12 @@ export const metadata: Metadata = {
     "chibi ai art",
     "pollinations anime",
   ],
-  authors: [{ name: "AI Toolbox" }],
-  creator: "AI Toolbox",
-  publisher: "AI Toolbox",
+  authors: [{ name: "AIToolbox" }],
+  creator: "AIToolbox",
+  publisher: "AIToolbox",
   alternates: { canonical: "/anime-ai-generator" },
   openGraph: {
-    title: "Free Anime AI Generator - Online Text to Anime Art",
+    title: "AI Anime Image Generator - Online Text to Anime Art",
     description:
       "Turn text prompts into beautiful anime-style images using our free Anime AI Generator.",
     url: "/anime-ai-generator",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Anime AI Generator - Text to Anime Art",
+    title: "AI Anime Image Generator - Text to Anime Art",
     description: "Generate anime-style images from your ideas in seconds.",
     images: ["/mainOG.webp"],
   },

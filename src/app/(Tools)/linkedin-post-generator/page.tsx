@@ -2,7 +2,7 @@ import LinkedInPostGeneratorClient from "./_components/linkedin-post-generator-c
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "LinkedIn Post Generator - Create Engaging Professional Posts",
+  title: "AI LinkedIn Post Generator | AI Toolbox",
   description:
     "Generate professional, engaging LinkedIn posts with our AI-powered tool. Create compelling content for networking, thought leadership, and professional growth.",
 };
