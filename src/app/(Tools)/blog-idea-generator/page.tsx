@@ -2,11 +2,11 @@ import { Metadata } from "next";
 import BlogIdeaGeneratorClient from "./_components/blog-idea-generator-client";
 
 export const metadata: Metadata = {
-  title: "AI Blog Idea Generator - Never Run Out of Content Ideas",
+  title: "AI Blog Ideas - Never Run Out of Content Ideas",
   description: "Generate endless, engaging blog post ideas with our AI-powered tool. Perfect for bloggers, content creators, and marketers looking to maintain a consistent content calendar.",
   keywords: ["blog idea generator", "content ideas", "blog post topics", "AI content ideas", "blogging inspiration", "content calendar ideas", "article topics"],
   openGraph: {
-    title: "AI Blog Idea Generator - Never Run Out of Content Ideas",
+    title: "AI Blog Ideas - Never Run Out of Content Ideas",
     description: "Generate endless, engaging blog post ideas with our AI-powered tool. Perfect for bloggers and content creators.",
   },
 };
@@ -44,7 +44,7 @@ export default function BlogIdeaGeneratorPage() {
       <div className="max-w-4xl mx-auto">
         <header className="mb-10">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-center">
-            AI-Powered Blog Idea Generator
+            AI Blog Ideas
           </h1>
           <p className="text-muted-foreground mt-3 max-w-2xl mx-auto text-center">
             Overcome writer's block with fresh, engaging blog post ideas.

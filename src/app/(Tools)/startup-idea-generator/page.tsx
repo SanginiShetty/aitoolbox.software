@@ -2,11 +2,11 @@ import { Metadata } from "next";
 import StartupIdeaGeneratorClient from "./_components/startup-idea-generator-client";
 
 export const metadata: Metadata = {
-  title: "AI Startup Idea Generator - Discover Your Next Business Venture",
+  title: "AI Startup Ideas - Discover Your Next Business Venture",
   description: "Generate innovative, market-validated startup ideas with our AI-powered tool. Perfect for aspiring entrepreneurs and innovators looking for their next big opportunity.",
   keywords: ["startup idea generator", "business ideas", "startup opportunities", "entrepreneur ideas", "AI business ideas", "startup validation", "next big thing"],
   openGraph: {
-    title: "AI Startup Idea Generator - Discover Your Next Business Venture",
+    title: "AI Startup Ideas - Discover Your Next Business Venture",
     description: "Generate innovative, market-validated startup ideas with our AI-powered tool. Perfect for aspiring entrepreneurs and innovators.",
   },
 };
@@ -44,7 +44,7 @@ export default function StartupIdeaGeneratorPage() {
       <div className="max-w-4xl mx-auto">
         <header className="mb-10">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-center">
-            AI-Powered Startup Idea Generator
+            AI Startup Ideas
           </h1>
           <p className="text-muted-foreground mt-3 max-w-2xl mx-auto text-center">
             Discover your next business opportunity with AI-powered startup ideas.

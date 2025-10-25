@@ -2,11 +2,11 @@ import { Metadata } from "next";
 import AppIdeaGeneratorClient from "./_components/app-idea-generator-client";
 
 export const metadata: Metadata = {
-  title: "AI App Idea Generator - Discover Your Next Mobile App Concept",
+  title: "AI App Ideas - Discover Your Next Mobile App Concept",
   description: "Generate innovative mobile and web app ideas with our AI-powered tool. Perfect for developers, entrepreneurs, and product managers looking for their next project.",
   keywords: ["app idea generator", "mobile app ideas", "web app concepts", "AI app development", "startup app ideas", "next app to build", "tech project ideas"],
   openGraph: {
-    title: "AI App Idea Generator - Discover Your Next Mobile App Concept",
+    title: "AI App Ideas - Discover Your Next Mobile App Concept",
     description: "Generate innovative mobile and web app ideas with our AI-powered tool. Perfect for developers and entrepreneurs.",
   },
 };
