@@ -7,6 +7,14 @@ export type AppwriteServerClients = {
   account: Account;
 };
 
+function hasServerEnv() {
+  return Boolean(
+    process.env.APPWRITE_ENDPOINT &&
+    process.env.APPWRITE_PROJECT_ID &&
+    process.env.APPWRITE_API_KEY
+  );
+}
+
 export function getServerClients(): AppwriteServerClients {
   const endpoint = process.env.APPWRITE_ENDPOINT;
   const projectId = process.env.APPWRITE_PROJECT_ID;
@@ -68,19 +76,23 @@ export const BLOG_COVERS_BUCKET_ID = "blog-covers";
 
 export async function getBlogBySlug(slug: string) {
   try {
+    if (!hasServerEnv()) {
+      // In local dev without server env, return null instead of throwing
+      return null;
+    }
     const { databases } = getServerClients();
     // Query directly by slug instead of listing all documents
     const result = await databases.listDocuments(
-      BLOGS_DB_ID, 
+      BLOGS_DB_ID,
       BLOGS_COLLECTION_ID,
       [
-        Query.equal('slug', slug),
-        Query.limit(1)
+        Query.equal("slug", slug),
+        Query.limit(1),
       ]
     );
     return result.documents?.[0] || null;
   } catch (error) {
-    console.error('Error fetching blog by slug:', error);
+    console.error("Error fetching blog by slug:", error);
     return null;
   }
 }
@@ -88,18 +100,21 @@ export async function getBlogBySlug(slug: string) {
 // Remove getAllBlogSlugs function as it won't scale for 20k blogs
 export async function getRecentBlogSlugs(limit: number = 100): Promise<string[]> {
   try {
+    if (!hasServerEnv()) {
+      return [];
+    }
     const { databases } = getServerClients();
     const list = await databases.listDocuments(
-      BLOGS_DB_ID, 
+      BLOGS_DB_ID,
       BLOGS_COLLECTION_ID,
       [
-        Query.orderDesc('$createdAt'),
-        Query.limit(limit)
+        Query.orderDesc("$createdAt"),
+        Query.limit(limit),
       ]
     );
     return list.documents?.map((doc: any) => doc.slug).filter(Boolean) || [];
   } catch (error) {
-    console.error('Error fetching recent blog slugs:', error);
+    console.error("Error fetching recent blog slugs:", error);
     return [];
   }
 }
