@@ -1,6 +1,12 @@
 import React,{JSX} from 'react';
 import { Code } from 'lucide-react';
+import { Metadata } from 'next';
 import CodeExplainerClient from './code-explainer-client';
+
+export const metadata: Metadata = {
+  title: 'AI Code Explainer - Understand Code Instantly',
+  description: 'Paste code and get clear, tailored explanations with our AI Code Explainer.',
+};
 
 export default function CodeExplainerPage(): JSX.Element {
   return (
@@ -9,7 +15,7 @@ export default function CodeExplainerPage(): JSX.Element {
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-4 flex items-center gap-2">
           <Code className="h-6 w-6 text-primary" />
-          AI Code Explainer Tool
+          AI Code Explainer
         </h1>
         <p className="text-lg text-zinc-600 mb-6">
           Struggling to understand complex code? Our AI Code Explainer breaks down any code snippet into clear, easy-to-understand explanations. Whether you're learning a new programming language, debugging existing code, or trying to understand someone else's implementation - our tool provides detailed explanations tailored to your skill level.

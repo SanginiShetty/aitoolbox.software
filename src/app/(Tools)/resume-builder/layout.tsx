@@ -9,7 +9,7 @@ export default function ResumeBuilderLayout({
   return (
     <>
       <Head>
-        <title>AI-Powered Resume Builder | Create Professional Resumes</title>
+        <title>AI Resume Builder | Create Professional Resumes</title>
         <meta
           name="description"
           content="Free online resume builder with AI optimization. Create ATS-friendly resumes in minutes. Download as PDF or share directly with employers."

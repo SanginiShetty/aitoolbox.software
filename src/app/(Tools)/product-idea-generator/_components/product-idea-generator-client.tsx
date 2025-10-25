@@ -168,7 +168,7 @@ Format each idea with clear sections using markdown headers (##) and bullet poin
         {/* Main Heading */}
         <div className="text-center mb-6">
           <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-700 via-gray-800 to-gray-700 bg-clip-text text-transparent">
-            AI Product Idea Generator
+            AI Product Ideas
           </h1>
           <p className="mt-2 text-gray-600">Generate innovative product ideas with AI</p>
         </div>
