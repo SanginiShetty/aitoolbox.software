@@ -21,163 +21,65 @@ import {
   FileUser,
   Search,
   Globe,
-  Map,
-  Brain,
   Linkedin,
-  Presentation
+  Presentation,
+  Video,
+  Newspaper,
+  Target,
+  Briefcase,
+  Rocket,
+  Smartphone,
+  Package,
+  MapPin,
+  Users,
+  Scale,
+  Cookie,
+  ReceiptText,
 } from "lucide-react";
+import { categories as categoryDefs, tools as toolDefs, ToolMeta } from "@/config/tools";
 import Link from "next/link";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Client, Databases } from "appwrite";
 import { getPublicFileViewUrl } from "@/lib/appwrite";
 
-// List of AI tools
-const aiTools = [
-  {
-    name: "AI Email Writer",
-    href: "/email-writer",
-    icon: <Mail className="h-6 w-6" />,
-    description: "Write professional emails with AI assistance",
-    category: "writing"
-  },
-  {
-    name: "AI Chatbot",
-    href: "/chatbot",
-    icon: <MessagesSquare className="h-6 w-6" />,
-    description: "Interactive AI chatbot for conversations",
-    category: "communication"
-  },
-  {
-    name: "AI Translator",
-    href: "/ai-translator",
-    icon: <Globe className="h-6 w-6" />,
-    description: "Translate text between multiple languages",
-    category: "writing"
-  },
-  {
-    name: "AI LinkedIn Post Generator",
-    href: "/linkedin-post-generator",
-    icon: <Linkedin className="h-6 w-6" />,
-    description: "Create engaging professional LinkedIn posts",
-    category: "writing"
-  },
-  {
-    name: "AI Image Generator",
-    href: "/image-generator",
-    icon: <ImageIcon className="h-6 w-6" />,
-    description: "Create unique AI-generated images",
-    category: "visual"
-  },
-  {
-    name: "AI Anime Image Generator",
-    href: "/anime-ai-generator",
-    icon: <ImageIcon className="h-6 w-6" />,
-    description: "Generate anime-style art from text prompts",
-    category: "visual"
-  },
-  {
-    name: "AI Logo Generator",
-    href: "/logo-generator",
-    icon: <Box className="h-6 w-6" />,
-    description: "Design professional logos with AI",
-    category: "visual"
-  },
-  {
-    name: "AI YouTube Summarizer",
-    href: "/youtube-summarizer",
-    icon: <Youtube className="h-6 w-6" />,
-    description: "Get quick summaries of YouTube videos",
-    category: "content"
-  },
-  {
-    name: "AI PPT Builder",
-    href: "/ai-ppt-builder",
-    icon: <Presentation className="h-5 w-5" />,
-    description: "Build Presentations with different themes",
-    category: "content"
-  },
-  {
-    name: "AI Code Explainer",
-    href: "/code-explainer",
-    icon: <Code className="h-6 w-6" />,
-    description: "Understand code snippets easily",
-    category: "development"
-  },
-  {
-    name: "AI Text Summarizer",
-    href: "/text-summarizer",
-    icon: <FileText className="h-6 w-6" />,
-    description: "Summarize long texts quickly",
-    category: "content"
-  },
-  {
-    name: "AI Blog Writer",
-    href: "/blog-writer",
-    icon: <PenTool className="h-6 w-6" />,
-    description: "Create engaging blog content",
-    category: "writing"
-  },
-  {
-    name: "AI Grammar Fixer",
-    href: "/grammar-fixer",
-    icon: <Check className="h-6 w-6" />,
-    description: "Fix grammar and improve writing",
-    category: "writing"
-  },
-  {
-    name: "AI Resume Builder",
-    href: "/resume-builder",
-    icon: <FileSpreadsheet className="h-6 w-6" />,
-    description: "Create professional resumes",
-    category: "professional"
-  },
-  {
-    name: "AI Cover Letter Generator",
-    href: "/cover-letter-generator",
-    icon: <FileUser className="h-6 w-6" />,
-    description: "Craft personalized cover letters",
-    category: "professional"
-  },
-  {
-    name: "Idea Generator",
-    href: "/idea-generator",
-    icon: <Lightbulb className="h-6 w-6" />,
-    description: "Generate creative ideas",
-    category: "creativity"
-  },
-  {
-  name: "AI Trip Planner",
-  href: "/trip-planner",
-  icon: <Map className="h-6 w-6" />, // or use a relevant Lucide/FontAwesome icon
-  description: "Plan your travels intelligently with AI",
-  category: "travel"
-},
-{
-  name: "AI Bio Generator",
-  href: "/ai-bio-generator",
-  icon: <FileText className="h-6 w-6" />,
-  description: "Generate professional bios instantly with AI",
-  category: "writing"
-},
-  {
-  name: "AI Project Recommender",
-  href: "/project-recommender",
-  icon: <Brain className="h-6 w-6" />, 
-  description: "Get personalized project ideas based on your skills",
-  category: "learning"
-},
-];
+// Build categories list from central registry (ordered)
+const categories = categoryDefs
+  .slice()
+  .sort((a, b) => a.order - b.order)
+  .map((c) => c.id);
 
-const categories = [...new Set(aiTools.map(tool => tool.category))];
-
-// Validation: Check for duplicate tool names to prevent React key errors
-const duplicateNames = aiTools
-  .map(tool => tool.name)
-  .filter((name, index, arr) => arr.indexOf(name) !== index);
-
-if (duplicateNames.length > 0) {
-  console.warn('Duplicate tool names found:', duplicateNames);
-}
+// Icon mapping from registry icon ids to components
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  MessagesSquare,
+  Mail,
+  Globe,
+  PenTool,
+  Check,
+  FileUser,
+  Siren: FileText, // fallback if Siren is not imported; adjust if needed
+  Linkedin,
+  Pen: PenTool,
+  ImageIcon,
+  Box,
+  Youtube,
+  Presentation,
+  FileText,
+  Video,
+  Newspaper,
+  Code,
+  Target,
+  FileSpreadsheet,
+  Briefcase,
+  Lightbulb,
+  Rocket,
+  Smartphone,
+  Package,
+  MapPin,
+  Users,
+  Scale,
+  Cookie,
+  ReceiptText,
+};
 
 export default function Home() {
   const router = useRouter();
@@ -231,9 +133,8 @@ export default function Home() {
     router.push(query ? `${pathname}?${query}` : pathname, { scroll: false });
   };
 
-  const filteredTools = aiTools.filter(tool => {
-    const matchesSearch = tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         tool.description.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredTools = toolDefs.filter((tool) => {
+    const matchesSearch = tool.name.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === "all" || tool.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
@@ -310,28 +211,28 @@ export default function Home() {
               No tools found matching your search
             </div>
           ) : (
-            filteredTools.map((tool, index) => (
-              <Card 
-                key={`${tool.name}-${tool.href}`}
-                className="p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group cursor-pointer"
-              >
-                <a href={tool.href} className="space-y-2">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                    {React.cloneElement(tool.icon, { className: 'h-5 w-5' })}
-                  </div>
-                  <h3 className="text-base sm:text-lg font-semibold group-hover:text-primary transition-colors">
-                    {tool.name}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">
-                    {tool.description}
-                  </p>
-                  <div className="flex items-center text-primary text-sm">
-                    Try now
-                    <span className="ml-2 transition-transform group-hover:translate-x-1">→</span>
-                  </div>
-                </a>
-              </Card>
-            ))
+            filteredTools.map((tool) => {
+              const Icon = iconMap[tool.icon] ?? FileText;
+              return (
+                <Card
+                  key={`${tool.name}-${tool.href}`}
+                  className="p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group cursor-pointer"
+                >
+                  <a href={tool.href} className="space-y-2">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <h3 className="text-base sm:text-lg font-semibold group-hover:text-primary transition-colors">
+                      {tool.name}
+                    </h3>
+                    <div className="flex items-center text-primary text-sm">
+                      Try now
+                      <span className="ml-2 transition-transform group-hover:translate-x-1">→</span>
+                    </div>
+                  </a>
+                </Card>
+              );
+            })
           )}
         </div>
 

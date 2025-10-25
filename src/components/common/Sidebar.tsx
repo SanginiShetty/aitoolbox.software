@@ -1,34 +1,27 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import {
   Menu,
-  Mail,
-  Siren,
-  Cookie,
-  ReceiptText,
   MessagesSquare,
   ImageIcon,
-  Scale,
   Box,
-  Youtube,
   Code,
   FileText,
   PenTool,
-  Briefcase,
   Check,
   FileSpreadsheet,
   Lightbulb,
   Settings,
-  Search, 
-  Menu as MenuIcon,
+  Search,
   Rocket,
   Video,
   Newspaper,
@@ -36,207 +29,76 @@ import {
   Package,
   Globe,
   MapPin,
-  Pen,
   Target,
   Linkedin,
   Presentation,
   Users,
-  FileUser,
+  Scale,
+  Cookie,
+  ReceiptText,
 } from "lucide-react";
 import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
+import { categories as categoryDefs, tools as toolDefs } from "@/config/tools";
 
-// Tool interface definition
-interface Tool {
-  name: string;
-  href: string;
-  icon: React.ReactNode;
-}
-
-// List of AI tools
-const aiTools: Tool[] = [
-  {
-    name: "Ask AIToolbox",
-    href: "/chatbot",
-    icon: <MessagesSquare className="h-5 w-5" />,
-  },
-  {
-    name: "AI Prompt Generator",
-    href: "/prompt-generator",
-    icon: <PenTool className="h-5 w-5" />,
-  },
-  {
-    name: "AI Email Writer",
-    href: "/email-writer",
-    icon: <Mail className="h-5 w-5" />,
-  },
-  {
-    name: "AI Translator",
-    href: "/ai-translator",
-    icon: <Globe className="h-5 w-5" />,
-  },
-  {
-    name: "AI Bio Generator",
-    href: "/ai-bio-generator",
-    icon: <Siren className="h-5 w-5"/>,
-  },
-  {
-    name: "AI LinkedIn Post Generator",
-    href: "/linkedin-post-generator",
-    icon: <Linkedin className="h-5 w-5" />,
-  },
-  {
-    name: "AI Trip Planner",
-    href: "/trip-planner",
-    icon: <MapPin className="h-5 w-5" />,
-  },
-  {
-    name: "AI Image Generator",
-    href: "/image-generator",
-    icon: <ImageIcon className="h-5 w-5" />,
-  },
-  {
-    name: "AI Anime Image Generator",
-    href: "/anime-ai-generator",
-    icon: <ImageIcon className="h-5 w-5" />,
-  },
-  {
-    name: "AI Logo Generator",
-    href: "/logo-generator",
-    icon: <Box className="h-5 w-5" />,
-  },
-  {
-    name: "AI Project Recommender",
-    href: "/project-recommender",
-    icon: <Target className="h-5 w-5" />,
-  },
-  {
-    name: "AI YouTube Summarizer",
-    href: "/youtube-summarizer",
-    icon: <Youtube className="h-5 w-5" />,
-  },
-  {
-    name: "AI PPT Builder",
-    href: "/ai-ppt-builder",
-    icon: <Presentation className="h-5 w-5" />,
-  },
-  {
-    name: "AI Code Explainer",
-    href: "/code-explainer",
-    icon: <Code className="h-5 w-5" />,
-  },
-  {
-    name: "AI Text Summarizer",
-    href: "/text-summarizer",
-    icon: <FileText className="h-5 w-5" />,
-  },
-  {
-    name: "AI Blog Writer",
-    href: "/blog-writer",
-    icon: <PenTool className="h-5 w-5" />,
-  },
-  {
-    name: "AI Grammar Fixer",
-    href: "/grammar-fixer",
-    icon: <Check className="h-5 w-5" />,
-  },
-  {
-    name: "AI Resume Builder",
-    href: "/resume-builder",
-    icon: <FileSpreadsheet className="h-5 w-5" />,
-  },
-  {
-    name: "AI Cover Letter Generator",
-    href: "/cover-letter-generator",
-    icon: <FileUser className="h-5 w-5" />,
-  },
-  {
-    name: "AI Mock Interview",
-    href: "/mock-interview",
-    icon: <Briefcase className="h-5 w-5" />,
-  },
-  {
-    name: "AI Idea Generator",
-    href: "/idea-generator",
-    icon: <Lightbulb className="h-5 w-5" />,
-  },
-  {
-    name: "AI Startup Ideas",
-    href: "/startup-idea-generator",
-    icon: <Rocket className="h-5 w-5" />,
-  },
-  {
-    name: "AI YouTube Ideas",
-    href: "/youtube-idea-generator",
-    icon: <Video className="h-5 w-5" />,
-  },
-  {
-    name: "AI Blog Ideas",
-    href: "/blog-idea-generator",
-    icon: <Newspaper className="h-5 w-5" />,
-  },
-  {
-    name: "AI App Ideas",
-    href: "/app-idea-generator",
-    icon: <Smartphone className="h-5 w-5" />,
-  },
-  {
-    name: "AI Product Ideas",
-    href: "/product-idea-generator",
-    icon: <Package className="h-5 w-5" />,
-  },
-  {
-    name: "AI Product Description Generator",
-    href: "/product-description-generator",
-    icon: <Pen className="h-5 w-5" />,
-  },
-  {
-    name: "Community",
-    href: "/community",
-    icon: <Users className="h-5 w-5" />,
-  },
-  {
-    name: "Blog",
-    href: "/blog",
-    icon: <PenTool className="h-5 w-5" />,
-  },
-  {
-    name: "Privacy-Policy",
-    href: "/privacy-policy",
-    icon: <Scale className="h-5 w-5"/>,
-  },
-  {
-    name: "Cookie-Policy",
-    href: "/cookie-policy",
-    icon: <Cookie className="h-5 w-5"/>,
-  },
-  {
-    name: "Terms of Service",
-    href: "/terms-of-service",
-    icon: <ReceiptText className="h-5 w-5"/>,
-  },
-  {
-    name: "DMCA Policy",
-    href: "/dmca-policy",
-    icon: <Siren className="h-5 w-5"/>,
-  },
-];
+// Category icons
+const categoryIcon: Record<string, React.ComponentType<{ className?: string }>> = {
+  writing: PenTool,
+  communication: MessagesSquare,
+  visual: ImageIcon,
+  content: FileText,
+  development: Code,
+  professional: FileSpreadsheet,
+  creativity: Lightbulb,
+  travel: MapPin,
+  learning: Target,
+  community: Users,
+  legal: Scale,
+};
 
 export default function Sidebar() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isCollapsed, setIsCollapsed] = useState(false);
   const pathname = usePathname();
-  const isMobile =  useIsMobile();
+  const router = useRouter();
+  const isMobile = useIsMobile();
 
-  // Filter tools based on search query (disabled when collapsed)
-  const filteredTools = aiTools.filter((tool) =>
-    isCollapsed
-      ? true
-      : tool.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const grouped = useMemo(() => {
+    const byCat = new Map<string, { label: string; ids: string[] }>();
+    const labelMap = new Map(categoryDefs.map((c) => [c.id, c.label] as const));
+    for (const c of categoryDefs) byCat.set(c.id, { label: c.label, ids: [] });
+    for (const t of toolDefs) {
+      if (!byCat.has(t.category)) continue;
+      byCat.get(t.category)!.ids.push(t.href);
+    }
+    return byCat;
+  }, []);
+
+  const filteredCategories = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    const result: { id: string; label: string; count: number }[] = [];
+    for (const [id, { label, ids }] of grouped.entries()) {
+      if (!q) {
+        if (ids.length > 0) result.push({ id, label, count: ids.length });
+        continue;
+      }
+      // match category label or any tool name in that category
+      const nameMatch = toolDefs.some(
+        (t) => t.category === id && t.name.toLowerCase().includes(q)
+      );
+      if (label.toLowerCase().includes(q) || nameMatch) {
+        result.push({ id, label, count: ids.length });
+      }
+    }
+    return result;
+  }, [grouped, searchQuery]);
+
+  const onNavigateCategory = (catId: string) => {
+    router.push(catId ? `/?category=${catId}` : "/");
+  };
 
   const sidebarContent = (
     <div className="h-full flex flex-col">
@@ -262,7 +124,7 @@ export default function Sidebar() {
             className={cn("ml-2", isCollapsed && "mx-auto")}
             onClick={() => setIsCollapsed((prev) => !prev)}
           >
-            <MenuIcon className="h-5 w-5" />
+            <Menu className="h-5 w-5" />
             <span className="sr-only">Toggle sidebar width</span>
           </Button>
         )}
@@ -279,36 +141,60 @@ export default function Sidebar() {
           }}
         >
           <div className="space-y-1">
-            {filteredTools.length === 0 ? (
+            {filteredCategories.length === 0 ? (
               <div className="text-center text-sm text-muted-foreground py-4">
-                No tools found
+                No categories found
               </div>
-            ) : (
-              // Actual tools list
-              filteredTools.map((tool) => (
-                <Tooltip key={tool.name} delayDuration={200}>
-                  <TooltipTrigger asChild>
-                    <Link
-                      href={tool.href}
-                      className={cn(
-                        "flex items-center rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground",
-                        pathname === tool.href
-                          ? "bg-accent text-accent-foreground"
-                          : "transparent",
-                        isCollapsed ? "justify-center" : "gap-3"
-                      )}
-                    >
-                      {tool.icon}
-                      {!isCollapsed && <span>{tool.name}</span>}
-                    </Link>
-                  </TooltipTrigger>
-                  {isCollapsed && (
+            ) : isCollapsed ? (
+              filteredCategories.map(({ id, label, count }) => {
+                const Icon = categoryIcon[id] ?? FileText;
+                const active = false; // collapsed view does not show active states per-category
+                return (
+                  <Tooltip key={id} delayDuration={200}>
+                    <TooltipTrigger asChild>
+                      <button
+                        onClick={() => onNavigateCategory(id)}
+                        className={cn(
+                          "w-full flex items-center justify-center rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+                        )}
+                      >
+                        <Icon className="h-5 w-5" />
+                      </button>
+                    </TooltipTrigger>
                     <TooltipContent side="right" className="capitalize">
-                      {tool.name}
+                      {label} ({count})
                     </TooltipContent>
-                  )}
-                </Tooltip>
-              ))
+                  </Tooltip>
+                );
+              })
+            ) : (
+              <Accordion type="single" collapsible className="w-full">
+                {filteredCategories.map(({ id, label, count }) => {
+                  const Icon = categoryIcon[id] ?? FileText;
+                  return (
+                    <AccordionItem key={id} value={id} className="border-none">
+                      <Tooltip delayDuration={200}>
+                        <TooltipTrigger asChild>
+                          <AccordionTrigger className="px-3 py-2 hover:no-underline">
+                            <div className="flex items-center gap-3">
+                              <Icon className="h-5 w-5" />
+                              <span className="text-sm">{label}</span>
+                            </div>
+                          </AccordionTrigger>
+                        </TooltipTrigger>
+                        <TooltipContent side="right" className="capitalize">
+                          {label} ({count})
+                        </TooltipContent>
+                      </Tooltip>
+                      <AccordionContent className="px-3 pb-2">
+                        <Button size="sm" variant="outline" className="w-full justify-start" onClick={() => onNavigateCategory(id)}>
+                          View all {label} ({count})
+                        </Button>
+                      </AccordionContent>
+                    </AccordionItem>
+                  );
+                })}
+              </Accordion>
             )}
           </div>
         </div>

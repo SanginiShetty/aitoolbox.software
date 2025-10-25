@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/next";
 import Footer from "@/components/common/Footer";
 import SocialBarAd from "@/components/ads/SocialBarAd";
+import BackToTop from "@/components/common/BackToTop";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -125,6 +126,7 @@ export default function RootLayout({
             </main>
           </div>
         </div>
+        <BackToTop />
         <Toaster />
         <SocialBarAd />
       </body>
